@@ -11,6 +11,6 @@ const getUserByIdor404 = (req, res, next) => {
 
   req.user = user;
 
-  next();
+  return next();
 };
 export default getUserByIdor404;

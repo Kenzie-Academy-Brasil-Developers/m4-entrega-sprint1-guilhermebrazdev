@@ -1,8 +1,10 @@
 import { userByIdService } from "../services";
 
-const verifyUpdater = (req, res, next) => {
+const verifyDeleter = (req, res, next) => {
   const token = req.decoded;
   const { uuid } = req.params;
+
+  console.log("tokjen:", token);
 
   const user = userByIdService(uuid);
 
@@ -10,19 +12,17 @@ const verifyUpdater = (req, res, next) => {
     return res.status(404).json({ message: "User not found" });
   }
 
-  const updater = userByIdService(token.id);
+  const deleter = userByIdService(token.id);
 
-  if (!updater) {
+  if (!deleter) {
     return res.status(404).json({ message: "User token not found" });
   }
 
-  if (updater.uuid !== uuid && !updater.isAdm) {
+  if (deleter.id !== uuid && !deleter.isAdm) {
     return res.status(400).json({ message: "Missing admin permissions" });
   }
-
-  req.user = user;
 
   return next();
 };
 
-export default verifyUpdater;
+export default verifyDeleter;

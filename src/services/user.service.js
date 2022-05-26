@@ -81,9 +81,6 @@ const updateService = (user, body) => {
   }
 
   if (sendedKeys.includes("email")) {
-    console.log("aqui no erro do email");
-    console.log("body:", body);
-
     const user = USERS_DB.find(
       (element) => element.email.toLowerCase() === body.email.toLowerCase()
     );
@@ -103,10 +100,7 @@ const updateService = (user, body) => {
 const deleteUserService = (user) => {
   const userIndex = USERS_DB.indexOf(user);
 
-  console.log("userdb:", USERS_DB);
-
   USERS_DB.splice(userIndex, 1);
-  console.log("userdb:", USERS_DB);
 
   return user;
 };

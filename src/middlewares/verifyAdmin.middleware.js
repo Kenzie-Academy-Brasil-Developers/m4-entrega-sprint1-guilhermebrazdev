@@ -10,10 +10,8 @@ const verifyAdmin = (req, res, next) => {
   const tokenInfo = req.decoded;
 
   const userId = tokenInfo.id;
-  console.log("userId", userId);
 
   const user = userByIdService(userId);
-  console.log("admin user", user);
 
   if (!user) {
     return res.status(404).json({ message: "User token not found" });

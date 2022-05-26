@@ -13,6 +13,7 @@ import {
   verifyAdmin,
   verifyUpdater,
   getUserByIdor404,
+  verifyDeleter,
 } from "../middlewares";
 
 const router = Router();
@@ -22,6 +23,12 @@ router.post("/login", login);
 router.get("/users", verifyToken, verifyAdmin, getUsers);
 router.get("/users/profile", verifyToken, getUserData);
 router.patch("/users/:uuid", verifyToken, verifyUpdater, updateUser);
-router.delete("/users/:uuid", verifyToken, getUserByIdor404, deleteUser);
+router.delete(
+  "/users/:uuid",
+  verifyToken,
+  getUserByIdor404,
+  verifyDeleter,
+  deleteUser
+);
 
 export default router;
