@@ -40,7 +40,7 @@ const getUserData = (req, res) => {
   return res.status(200).json({ user });
 };
 
-const updateUser = (req, res) => {
+const updateUser = async (req, res) => {
   const body = req.body;
   const user = req.user;
 
@@ -48,7 +48,7 @@ const updateUser = (req, res) => {
     return res.status(404).json({ message: "User not found" });
   }
 
-  const { status, message } = updateService(user, body);
+  const { status, message } = await updateService(user, body);
 
   return res.status(status).json(message);
 };

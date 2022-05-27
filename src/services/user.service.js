@@ -58,7 +58,7 @@ const userByIdService = (id) => {
   return user;
 };
 
-const updateService = (user, body) => {
+const updateService = async (user, body) => {
   const sendedKeys = Object.keys(body);
   const wrongKeys = ["isAdm", "uuid", "createdOn"];
 
@@ -88,6 +88,11 @@ const updateService = (user, body) => {
     if (user) {
       return { status: 409, message: { message: "E-mail already registered" } };
     }
+  }
+
+  if (sendedKeys.includes("password")) {
+    const pwd = await hash(body.password, 10);
+    body.password = pwd;
   }
 
   body.updatedOn = new Date();

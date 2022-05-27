@@ -4,8 +4,6 @@ const verifyDeleter = (req, res, next) => {
   const token = req.decoded;
   const { uuid } = req.params;
 
-  console.log("tokjen:", token);
-
   const user = userByIdService(uuid);
 
   if (!user) {
@@ -18,7 +16,7 @@ const verifyDeleter = (req, res, next) => {
     return res.status(404).json({ message: "User token not found" });
   }
 
-  if (deleter.id !== uuid && !deleter.isAdm) {
+  if (deleter.uuid !== uuid && !deleter.isAdm) {
     return res.status(400).json({ message: "Missing admin permissions" });
   }
 
